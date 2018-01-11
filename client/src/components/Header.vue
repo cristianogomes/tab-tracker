@@ -5,7 +5,9 @@
     </v-toolbar-title>
 
     <v-toolbar-items>
-      <v-btn flat dark>Browser</v-btn>
+      <v-btn flat dark router to="songs">
+        Browser
+      </v-btn>
     </v-toolbar-items>
 
     <v-spacer></v-spacer>
@@ -19,12 +21,25 @@
         v-if="!$store.state.isUserLoggedIn">
           Sign Up
       </v-btn>
+      <v-btn flat dark router @click="logout"
+        v-if="$store.state.isUserLoggedIn">
+          Log Out
+      </v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
   export default {
+    methods: {
+      logout () {
+        this.$store.dispatch('setToken', null)
+        this.$store.dispatch('setUser', null)
+        this.$router.push({
+          name: 'root'
+        })
+      }
+    }
   }
 </script>
 
